@@ -1,29 +1,36 @@
 
 
 $(document).ready(function(){
-  $("form#transportation_survey").submit(function(event){
+  $("form#fortune-quiz").submit(function(event){
     event.preventDefault();
-
+    // var fortune = [];
+    var unlucky = 0;
+    var lucky = 0;
     $("input:checkbox[name=unlucky]:checked").each(function(){
-      var fortune = $(this).val();
-      var unlucky = 0;
-      var lucky = 0;
+      unlucky++;
+    });
+    $("input:checkbox[name=lucky]:checked").each(function(){
+      lucky++;
+    });
 
-      for(var i = 0; i < fortune.length; i++){
-        if(fortune[i] === "unlucky"){
-          unlucky++;
-        } else if (fortune[i] === "lucky") {
-          lucky++;
-        }
-      }
-      if(lucky > unlucky){
-        $(#weal).show();
-      }else if(unlucky > lucky){
-        $(#woe).show();
-      }
+    if (unlucky === 0 && lucky === 0){
+      alert("Please check at least one box, or no one will have any fun.");
+    }else if(lucky - unlucky > 2){
+      $('#meh').hide();
+      $('#woe').hide();
+      $('#weal').show();
+    }else if(lucky - unlucky > -2){
+      $('#woe').hide();
+      $('#weal').hide();
+      $('#meh').show();
+    }else{
+      $('#weal').hide();
+      $('#meh').hide();
+      $('#woe').show();
+    }
 
     //  $('#work-responses').append(fortune + "<br>");
-    });
+
     $('#transportation_survey').hide();
     // $("#work-responses").show();
   });
